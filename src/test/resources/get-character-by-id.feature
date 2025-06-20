@@ -7,17 +7,17 @@ Feature: Marvel Characters API - Obtener Personaje por ID (Usuario: bronmosq)
     * def apiPath = '/' + username + '/api/characters'
     * def fullUrl = baseUrl + apiPath
 
-  Scenario: Obtener personaje por ID exitoso - GET /api/characters/1
-    Given url fullUrl + '/1'
+  Scenario: Obtener personaje por ID exitoso - GET /api/characters/4
+    Given url fullUrl + '/4'
     When method get
     Then status 200
-    And match response.id == 1
+    And match response.id == 4
     And match response.name == '#string'
     And match response.alterego == '#string'
     And match response.description == '#string'
     And match response.powers == '#array'
     And print 'Personaje encontrado:', response
-    And print 'GET /api/characters/1 ejecutado exitosamente'
+    And print 'GET /api/characters/4 ejecutado exitosamente'
 
   Scenario: Obtener personaje por ID que no existe - GET /api/characters/999
     Given url fullUrl + '/999'

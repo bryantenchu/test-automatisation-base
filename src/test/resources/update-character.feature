@@ -8,7 +8,7 @@ Feature: Marvel Characters API - Actualizar Personaje (Usuario: bronmosq)
     * def fullUrl = baseUrl + apiPath
 
   Scenario: Actualizar personaje existente - PUT exitoso
-    * def characterId = 1
+    * def characterId = 5
     * def updateUrl = fullUrl + '/' + characterId
     * def updatedCharacter = 
     """
@@ -24,7 +24,7 @@ Feature: Marvel Characters API - Actualizar Personaje (Usuario: bronmosq)
     And header Content-Type = 'application/json'
     When method put
     Then status 200
-    And match response.id == 1
+    And match response.id == 5
     And match response.name == 'Iron Man'
     And match response.alterego == 'Tony Stark'
     And match response.description == 'Updated description for testing'
@@ -54,7 +54,7 @@ Feature: Marvel Characters API - Actualizar Personaje (Usuario: bronmosq)
     And print 'PUT /api/characters/999 retornó 404 como se esperaba'
 
   Scenario: Intentar actualizar con campos faltantes/vacíos - Error 400
-    * def characterId = 1
+    * def characterId = 5
     * def updateUrl = fullUrl + '/' + characterId
     * def invalidCharacter = 
     """
@@ -78,7 +78,7 @@ Feature: Marvel Characters API - Actualizar Personaje (Usuario: bronmosq)
     And print 'PUT /api/characters/1 retornó 400 para validación de campos'
 
   Scenario: Intentar actualizar con objeto vacío - Error 400
-    * def characterId = 1
+    * def characterId = 5
     * def updateUrl = fullUrl + '/' + characterId
     * def emptyCharacter = {}
     Given url updateUrl
