@@ -18,3 +18,11 @@ Feature: Marvel Characters API - Obtener Personaje por ID (Usuario: bronmosq)
     And match response.powers == '#array'
     And print 'Personaje encontrado:', response
     And print 'GET /api/characters/1 ejecutado exitosamente'
+
+  Scenario: Obtener personaje por ID que no existe - GET /api/characters/999
+    Given url fullUrl + '/999'
+    When method get
+    Then status 404
+    And match response.error == '#string'
+    And print 'Error esperado para ID que no existe:', response
+    And print 'GET /api/characters/999 dio error 404'
