@@ -54,3 +54,39 @@ Feature: Marvel Characters API - Crear Personaje (Usuario: bronmosq)
     And match response.error == 'Character name already exists'
     And print 'Error esperado para nombre duplicado:', response
     And print 'POST /api/characters retornó 400 como se esperaba'
+
+  Scenario: Intentar crear personaje con campos faltantes/vacíos - Error 400
+    * def invalidCharacter = 
+    """
+    {
+      "name": "",
+      "alterego": "",
+      "description": "",
+      "powers": []
+    }
+    """
+    Given url fullUrl
+    And request invalidCharacter
+    And header Content-Type = 'application/json'
+    When method post
+    Then status 400
+    And match response.name == 'Name is required'
+    And match response.alterego == 'Alterego is required'
+    And match response.description == 'Description is required'
+    And match response.powers == 'Powers are required'
+    And print 'Error esperado para campos vacíos:', response
+    And print 'POST /api/characters devolvio 400 para validación de campos requeridos'
+
+  Scenario: Intentar crear personaje sin campos requeridos - Error 400
+    * def emptyCharacter = {}
+    Given url fullUrl
+    And request emptyCharacter
+    And header Content-Type = 'application/json'
+    When method post
+    Then status 400
+    And match response.name == 'Name is required'
+    And match response.alterego == 'Alterego is required'
+    And match response.description == 'Description is required'
+    And match response.powers == 'Powers are required'
+    And print 'Error esperado para objeto vacío:', response
+    And print 'POST /api/characters devolvio 400 para objeto sin campos'
